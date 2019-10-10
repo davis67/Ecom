@@ -1,11 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { isAuthenticated } from "../auth";
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
-    return { color: "#ff9900" };
+    return {
+      color: "#ff9900"
+    };
   } else {
-    return { color: "#ffff" };
+    return {
+      color: "#ffff"
+    };
   }
 };
 /**
@@ -21,22 +26,35 @@ const Menu = ({ history }) => {
             Home
           </Link>
         </li>
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+              >
+                Sign In
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+              >
+                Sign Up
+              </Link>
+            </li>
+          </Fragment>
+        )}
         <li className="nav-item">
           <Link
             className="nav-link"
-            style={isActive(history, "/signin")}
-            to="/signin"
+            style={isActive(history, "/signout")}
+            to="/signout"
           >
-            Sign In
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            style={isActive(history, "/signup")}
-            to="/signup"
-          >
-            Sign Up
+            Sign out
           </Link>
         </li>
       </ul>
