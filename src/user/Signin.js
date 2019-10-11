@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../core/Layout";
-import { Link, Redirect } from "react-router-dom";
-import { signin } from "../auth/index";
+import { Redirect } from "react-router-dom";
+import { signin, isAuthenticated } from "../auth/index";
 import { authenticate } from "../auth/index";
 // import { API } from "../config";
 
@@ -14,6 +14,7 @@ const Signin = () => {
     redirectToReferrer: false
   });
   const { email, password, loading, error, redirectToReferrer } = values;
+  const { user } = isAuthenticated();
 
   const handleChange = name => event => {
     setValues({
@@ -91,6 +92,14 @@ const Signin = () => {
   );
   const redirectUser = () => {
     if (redirectToReferrer) {
+      if (user && user.role === 1) {
+        return <Redirect to="/admin/dashboard" />;
+      } else {
+        return <Redirect to="/user/dashboard" />;
+      }
+    }
+
+    if (isAuthenticated()) {
       return <Redirect to="/" />;
     }
   };
@@ -98,6 +107,7 @@ const Signin = () => {
     <Layout
       title="Sign in Page"
       description="Sign in to Node React E-commerce app"
+      className="container col-md-8 offset-md-2"
     >
       {redirectUser()} {showLoading()} {showError()}
       {signInForm()} {/* {JSON.stringify(values)} */}

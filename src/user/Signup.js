@@ -22,8 +22,8 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleClick = event => {
+    event.preventDefault();
     signup({
       name,
       email,
@@ -45,6 +45,7 @@ const Signup = () => {
           success: true
         });
       }
+      return;
     });
   };
 
@@ -77,7 +78,7 @@ const Signup = () => {
           value={password}
         />
       </div>
-      <button onClick={handleSubmit} className="btn btn-primary">
+      <button onClick={handleClick} className="btn btn-primary">
         Submit
       </button>
     </form>
@@ -107,6 +108,7 @@ const Signup = () => {
     <Layout
       title="Sign up Page"
       description="Sign up to Node React E-commerce app"
+      className="container col-md-8 offset-md-2"
     >
       {showSuccess()} {showError()} {signUpForm()}
       {/* {JSON.stringify(values)} */}

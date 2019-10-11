@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated, signout } from "../auth";
+import { is } from "css-select";
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -26,6 +27,28 @@ const Menu = ({ history }) => {
             Home
           </Link>
         </li>
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/admin/dashboard")}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/user/dashboard")}
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
         {!isAuthenticated() && (
           <Fragment>
             <li className="nav-item">
@@ -49,13 +72,17 @@ const Menu = ({ history }) => {
           </Fragment>
         )}
         <li className="nav-item">
-          <Link
+          <span
             className="nav-link"
-            style={isActive(history, "/signout")}
-            to="/signout"
+            style={{ cursor: "pointer", color: "#FFFFFF" }}
+            onClick={() =>
+              signout(() => {
+                history.push("/");
+              })
+            }
           >
             Sign out
-          </Link>
+          </span>
         </li>
       </ul>
     </div>
