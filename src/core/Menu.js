@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { isAuthenticated, signout } from "../auth";
-import { is } from "css-select";
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -25,6 +24,15 @@ const Menu = ({ history }) => {
         <li className="nav-item">
           <Link className="nav-link" style={isActive(history, "/")} to="/">
             Home
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={isActive(history, "/shop")}
+            to="/shop"
+          >
+            shop
           </Link>
         </li>
         {isAuthenticated() && isAuthenticated().user.role === 1 && (
