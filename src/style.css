@@ -73,3 +73,28 @@
         background-position: 0% 50%;
     }
 }
+
+
+/** single product page
+*/
+
+.black-9 {
+    background: #e6e6e6;
+}
+
+.black-8 {
+    background: #d9d9d9;
+}
+
+.black-7 {
+    background: #cccccc;
+}
+
+.cart-badge,
+.cart-badge:hover {
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 12px;
+    font-style: italic;
+    background: #000;
+}
